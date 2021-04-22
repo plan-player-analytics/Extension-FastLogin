@@ -22,30 +22,43 @@
 */
 package com.djrapitops.extension;
 
+import com.djrapitops.plan.extension.CallEvents;
 import com.djrapitops.plan.extension.DataExtension;
+import com.djrapitops.plan.extension.annotation.GroupProvider;
+import com.djrapitops.plan.extension.annotation.PluginInfo;
+import com.djrapitops.plan.extension.icon.Color;
+import com.djrapitops.plan.extension.icon.Family;
 
-import java.util.Optional;
+import java.util.UUID;
+import java.util.function.Function;
 
 /**
- * Factory for DataExtension.
+ * DataExtension.
  *
  * @author AuroraLS3
  */
-public class NewExtensionFactory {
+@PluginInfo(name = "FastLogin", iconName = "bolt", iconFamily = Family.SOLID, color = Color.AMBER)
+public class FastLoginExtension implements DataExtension {
 
-    private boolean isAvailable() {
-        try {
-            Class.forName("");
-            return true;
-        } catch (ClassNotFoundException e) {
-            return false;
-        }
+    private Function<UUID, String> getPremiumStatus;
+
+    public FastLoginExtension(Function<UUID, String> getPremiumStatus) {
+        this.getPremiumStatus = getPremiumStatus;
     }
 
-    public Optional<DataExtension> createExtension() {
-        if (isAvailable()) {
-            return Optional.of(new NewExtension());
-        }
-        return Optional.empty();
+    public FastLoginExtension(boolean forTesting) {}
+
+    @Override
+    public CallEvents[] callExtensionMethodsOn() {
+        return new CallEvents[]{CallEvents.PLAYER_JOIN};
+    }
+
+    @GroupProvider(
+            text = "Premium status",
+            iconName = "user-tag",
+            groupColor = Color.AMBER
+    )
+    public String[] premiumStatus(UUID playerUUID) {
+        return new String[]{getPremiumStatus.apply(playerUUID)};
     }
 }

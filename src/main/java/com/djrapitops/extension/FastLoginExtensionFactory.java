@@ -23,21 +23,29 @@
 package com.djrapitops.extension;
 
 import com.djrapitops.plan.extension.DataExtension;
-import com.djrapitops.plan.extension.annotation.PluginInfo;
-import com.djrapitops.plan.extension.icon.Color;
-import com.djrapitops.plan.extension.icon.Family;
+
+import java.util.Optional;
 
 /**
- * DataExtension.
+ * Factory for DataExtension.
  *
  * @author AuroraLS3
  */
-@PluginInfo(name = "", iconName = "", iconFamily = Family.SOLID, color = Color.NONE)
-public class NewExtension implements DataExtension {
+public class FastLoginExtensionFactory {
 
-    public NewExtension() {
-        // TODO Add required API classes
+    private boolean isAvailable() {
+        try {
+            Class.forName("com.github.games647.fastlogin.bukkit.FastLoginBukkit");
+            return true;
+        } catch (ClassNotFoundException e) {
+            return false;
+        }
     }
 
-    // TODO Add Provider methods
+    public Optional<DataExtension> createExtension() {
+        if (isAvailable()) {
+            return Optional.of(new FastLoginExtension(new BukkitFastLoginAPI()::getPremiumStatus));
+        }
+        return Optional.empty();
+    }
 }
