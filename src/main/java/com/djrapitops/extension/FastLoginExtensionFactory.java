@@ -44,7 +44,7 @@ public class FastLoginExtensionFactory {
 
     public Optional<DataExtension> createExtension() {
         if (isAvailable()) {
-            return Optional.of(new FastLoginExtension(new BukkitFastLoginAPI()::getPremiumStatus));
+            return Optional.of(new FastLoginExtension());
         }
         return Optional.empty();
     }

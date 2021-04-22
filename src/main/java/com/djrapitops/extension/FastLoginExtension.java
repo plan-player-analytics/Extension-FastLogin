@@ -42,8 +42,8 @@ public class FastLoginExtension implements DataExtension {
 
     private Function<UUID, String> getPremiumStatus;
 
-    public FastLoginExtension(Function<UUID, String> getPremiumStatus) {
-        this.getPremiumStatus = getPremiumStatus;
+    public FastLoginExtension() {
+        this.getPremiumStatus = new BukkitFastLoginAPI()::getPremiumStatus;
     }
 
     public FastLoginExtension(boolean forTesting) {}
