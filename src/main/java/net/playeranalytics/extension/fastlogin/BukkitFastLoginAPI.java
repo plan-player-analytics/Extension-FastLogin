@@ -1,4 +1,4 @@
-package com.djrapitops.extension;
+package net.playeranalytics.extension.fastlogin;
 
 import com.djrapitops.plan.extension.NotReadyException;
 import com.github.games647.fastlogin.bukkit.FastLoginBukkit;
