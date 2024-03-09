@@ -6,7 +6,7 @@
 
     <groupId>net.playeranalytics</groupId>
     <artifactId>Extension-FastLogin</artifactId>
-    <version>R1.1</version>
+    <version>R1.2</version>
     <build>
         <plugins>
             <plugin>

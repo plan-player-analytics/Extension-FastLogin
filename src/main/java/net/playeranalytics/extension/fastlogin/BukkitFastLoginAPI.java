@@ -16,6 +16,13 @@ public class BukkitFastLoginAPI {
     }
 
     public String getPremiumStatus(UUID playerUUID) {
+        // Need to wait for the status to become available since the API doesn't provide a Future.
+        // https://github.com/plan-player-analytics/Plan/issues/3485
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
         return plugin.getStatus(playerUUID).getReadableName();
     }
 }
